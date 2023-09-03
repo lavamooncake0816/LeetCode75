@@ -22,7 +22,7 @@ class Solution:
 Notes
 1. append() does not create a new list; append() takes exactly one argument 2. append() vs. join() 3. don't have to separate diff cases
 
-<9.1 2nd attempt>
+<9.3 2nd attempt>
 class Solution:
     def mergeAlternately(self, word1: str, word2: str) -> str:
         l = []
