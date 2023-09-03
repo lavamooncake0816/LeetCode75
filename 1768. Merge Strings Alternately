@@ -1,0 +1,47 @@
+Array / String (Easy)
+
+You are given two strings word1 and word2. Merge the strings by adding letters in alternating order, starting with word1. If a string is longer than the other, append the additional letters onto the end of the merged string.
+
+Return the merged string.
+
+<7.24 1st attempt>
+class Solution:
+    def mergeAlternately(self, word1: str, word2: str) -> str:
+        l = []
+        for i in range(min(len(word1), len(word2))):
+            l.append(word1[i] + word2[i]) 
+        if len(word1) > len(word2):
+            l.append(word1[len(word2):])
+            return ''.join(l)
+        if len(word1) < len(word2):
+            l.append(word2[len(word1):])
+            return ''.join(l)
+        else:
+            return ''.join(l)
+
+Notes
+1. append() does not create a new list; append() takes exactly one argument 2. append() vs. join() 3. don't have to separate diff cases
+
+<9.1 2nd attempt>
+class Solution:
+    def mergeAlternately(self, word1: str, word2: str) -> str:
+        l = []
+
+        if len(word1) >= len(word2):
+            for i in range(len(word1)):
+                l.append(word1[i])
+                if i <= len(word2) - 1:
+                    l.append(word2[i])
+        
+        else:
+            for i in range(len(word2)):
+                if i <= len(word1) - 1: 
+                    l.append(word1[i])
+                    l.append(word2[i])
+                else:
+                    l.append(word2[i])
+
+        return ''.join(l)
+
+Notes
+1. ''.join()
