@@ -1,0 +1,39 @@
+Array / String (Easy)
+
+There are n kids with candies. You are given an integer array candies, where each candies[i] represents the number of candies the ith kid has, and an integer extraCandies, denoting the number of extra candies that you have.
+
+Return a boolean array result of length n, where result[i] is true if, after giving the ith kid all the extraCandies, they will have the greatest number of candies among all the kids, or false otherwise.
+
+Note that multiple kids can have the greatest number of candies.
+
+<7.25 1st attempt>
+class Solution:
+    def kidsWithCandies(self, candies: List[int], extraCandies: int) -> List[bool]:
+        l = []
+        
+        for item in candies:
+            if (item + extraCandies) >= max(candies):
+                l.append(True)
+            else:
+                l.append(False)
+
+        return l
+
+Notes
+1. simplify the code (e.g., use existing functions, remove unnecessary list) 2. booleans vs. strings 3. mathematical way of thinking worth training (the min number of candies a kid should have)
+
+<9.3 2nd attempt>
+class Solution:
+    def kidsWithCandies(self, candies: List[int], extraCandies: int) -> List[bool]:
+        l = []
+        
+        for i in range(len(candies)):
+            if candies[i] + extraCandies >= max(candies):
+                l.append(True)
+            else:
+                l.append(False)
+
+        return l
+
+Notes
+1. use maths next time
