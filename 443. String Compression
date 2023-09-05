@@ -1,0 +1,41 @@
+Array / String (Medium)
+
+Given an array of characters chars, compress it using the following algorithm:
+
+Begin with an empty string s. For each group of consecutive repeating characters in chars:
+
+If the group's length is 1, append the character to s.
+Otherwise, append the character followed by the group's length.
+The compressed string s should not be returned separately, but instead, be stored in the input character array chars. Note that group lengths that are 10 or longer will be split into multiple characters in chars.
+
+After you are done modifying the input array, return the new length of the array.
+
+You must write an algorithm that uses only constant extra space.
+
+<7.27 1st attempt>
+class Solution:
+    def compress(self, chars: List[str]) -> int:
+        walker, runner = 0, 0
+        while runner < len(chars):
+            chars[walker] = chars[runner]
+            count = 1
+
+            while runner + 1 < len(chars) and chars[runner] == chars[runner+1]:
+                runner += 1
+                count += 1
+            
+            if count > 1:
+                for c in str(count):
+                    chars[walker+1] = c
+                    walker += 1
+            
+            runner += 1
+            walker += 1
+        
+        return walker
+
+Notes
+1. the idea is important (two pointers, the 'runner' can help set boundaries) 2. 'count' is within the loop, enabling updating for distinct chars 3. the return format of 'count'
+
+<9.5 2nd attempt>
+failed
