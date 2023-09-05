@@ -1,0 +1,23 @@
+Array / String (Medium)
+
+Given an integer array nums, return true if there exists a triple of indices (i, j, k) such that i < j < k and nums[i] < nums[j] < nums[k]. If no such indices exists, return false.
+
+<7.27 1st attempt>
+class Solution:
+    def increasingTriplet(self, nums: List[int]) -> bool:
+        small, big = max(nums), max(nums)
+        for item in nums:
+            if item <= small:
+                small = item
+            elif item <= big:
+                big = item
+            else:
+                return True
+        else:
+            return False
+
+Notes
+1. the idea is important (update the extreme value)
+
+<9.5 2nd attempt>
+failed
