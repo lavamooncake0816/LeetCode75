@@ -1,0 +1,41 @@
+Two Pointers (Easy)
+
+Given an integer array nums, move all 0's to the end of it while maintaining the relative order of the non-zero elements.
+
+Note that you must do this in-place without making a copy of the array.
+
+<7.28 1st attempt>
+class Solution:
+    def moveZeroes(self, nums: List[int]) -> None:
+        """
+        Do not return anything, modify nums in-place instead.
+        """
+        end = len(nums)-1
+        begin = 0
+        while begin <= end:
+            if nums[begin] == 0:
+                for i in range(begin, end):
+                    nums[i] = nums[i+1]
+                nums[end] = 0
+                end -= 1
+            else:
+                begin +=1
+
+Notes
+1. set an 'end' boundary is important 2. think about the snowball solution (ingenious)
+
+<9.6 2nd attempt>
+class Solution:
+    def moveZeroes(self, nums: List[int]) -> None:
+        """
+        Do not return anything, modify nums in-place instead.
+        """
+        p1, p2 = 0, 0
+        while p2 < len(nums):
+            if nums[p2] != 0:
+                nums[p1], nums[p2] = nums[p2], nums[p1]
+                p1 += 1
+            p2 += 1
+
+Notes
+1. don't modify the list whilst iterating over it
