@@ -1,0 +1,40 @@
+Two Pointers (Medium)
+
+You are given an integer array nums and an integer k.
+
+In one operation, you can pick two numbers from the array whose sum equals k and remove them from the array.
+
+Return the maximum number of operations you can perform on the array.
+
+<7.28 1st attempt>
+class Solution:
+    def maxOperations(self, nums: List[int], k: int) -> int:
+        cnt, ans = Counter(nums), 0
+        for val in cnt:
+            ans += min(cnt[val], cnt[k-val])
+        return ans // 2
+
+Notes
+1. learn how to mark visited values 2. two pointers at the beginning and end of the list 3. think about how the 'sum' is calculated (use 'Counter')
+
+<9.7 2nd attempt>
+from collections import Counter
+
+class Solution:
+    def maxOperations(self, nums: List[int], k: int) -> int:
+        d = Counter(nums)
+        cnt = 0
+
+        for i in range(len(nums)):
+            n = nums[i]
+            s = k - n
+            if d[n] > 0:
+                d[n] -= 1
+                if d[s] > 0:
+                    d[s] -= 1
+                    cnt += 1
+        
+        return cnt
+
+Notes
+1. ensure that d[x] > 0 2. the ordering of conditional statements
