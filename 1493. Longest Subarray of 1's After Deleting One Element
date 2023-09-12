@@ -1,0 +1,32 @@
+Sliding Window (Medium)
+
+Given a binary array nums, you should delete one element from it.
+
+Return the size of the longest non-empty subarray containing only 1's in the resulting array. Return 0 if there is no such subarray.
+
+<7.31 1st attempt>
+class Solution:
+    def longestSubarray(self, nums: List[int]) -> int:
+        i = 0
+        k = 1
+        for j in range(len(nums)):
+            k -= 1 - nums[j]
+            if k < 0:
+                k += 1 - nums[i]
+                i += 1
+        return j - i 
+
+Notes
+1. same as 1004., lee is a genius
+
+<9.12 2nd attempt>
+class Solution:
+    def longestSubarray(self, nums: List[int]) -> int:
+        i = 0
+        k = 1
+        for j in range(len(nums)):
+            k -= 1 - nums[j]
+            if k < 0:
+                k += 1 - nums[i]
+                i += 1
+        return j - i 
