@@ -1,0 +1,20 @@
+Sliding Window (Medium)
+
+Given a binary array nums and an integer k, return the maximum number of consecutive 1's in the array if you can flip at most k 0's.
+
+<7.31 1st attempt>
+class Solution:
+    def longestOnes(self, nums: List[int], k: int) -> int:
+        i = 0
+        for j in range(len(nums)):
+            k -= 1 - nums[j]
+            if k < 0:
+                k += 1 - nums[i]
+                i += 1
+        return j - i + 1
+
+Notes
+1. the idea is important (a moving 'memory' sliding frame)
+
+<9.12 2nd attempt>
+failed
