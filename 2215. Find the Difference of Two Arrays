@@ -1,0 +1,38 @@
+Hash Map / Set (Easy)
+
+Given two 0-indexed integer arrays nums1 and nums2, return a list answer of size 2 where:
+
+answer[0] is a list of all distinct integers in nums1 which are not present in nums2.
+answer[1] is a list of all distinct integers in nums2 which are not present in nums1.
+Note that the integers in the lists may be returned in any order.
+
+<7.31 1st attempt>
+class Solution:
+    def findDifference(self, nums1: List[int], nums2: List[int]) -> List[List[int]]:
+        a = []
+        b = []
+        for item in nums1:
+            if item not in nums2:
+                if item not in a:
+                    a.append(item)
+        for item in nums2:
+            if item not in nums1:
+                if item not in b:
+                    b.append(item)
+        return a, b
+
+Notes
+1. avoid creating lists, look at what lee does (set)!
+
+<9.13 2nd attempt>
+class Solution:
+    def findDifference(self, nums1: List[int], nums2: List[int]) -> List[List[int]]:
+        s1, s2 = set(nums1), set(nums2)
+
+        s1_u = s1.difference(s2)
+        s2_u = s2.difference(s1)
+
+        return list(s1_u), list(s2_u)
+
+Notes
+1. set.difference() 2. difference operator '-'
