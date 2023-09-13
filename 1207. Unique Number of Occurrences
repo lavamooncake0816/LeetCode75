@@ -1,0 +1,31 @@
+Hash Map / Set (Easy)
+
+Given an array of integers arr, return true if the number of occurrences of each value in the array is unique or false otherwise.
+
+<7.31 1st attempt>
+class Solution:
+    def uniqueOccurrences(self, arr: List[int]) -> bool:
+        seen = []
+        for freq in Counter(arr).values():
+            if freq in seen:
+                return False
+            seen.append(freq)
+        return True
+
+Notes
+1. again, remember to use 'Counter' when needed
+
+<9.13 2nd attempt>
+from collections import Counter
+
+class Solution:
+    def uniqueOccurrences(self, arr: List[int]) -> bool:
+        d = Counter(arr)
+        s = set()
+
+        for i, n in d.items():
+            if n in s:
+                return False
+            s.add(n)
+        
+        return True
