@@ -1,0 +1,20 @@
+Hash Map / Set (Medium)
+
+Given a 0-indexed n x n integer matrix grid, return the number of pairs (ri, cj) such that row ri and column cj are equal.
+
+A row and column pair is considered equal if they contain the same elements in the same order (i.e., an equal array).
+
+<8.1 1st attempt>
+class Solution:
+    def equalPairs(self, grid: List[List[int]]) -> int:
+        cnt = Counter(tuple(row) for row in grid) # converting the rows of the grid into tuples allows them to be used as keys in the Counter object;  tuple([1, 2]) and tuple([1, 2]) become the same tuple
+        return sum(cnt[col] for col in zip(*grid)) # zip(*grid) takes each column of the grid and groups them together as tuples
+
+Notes
+1. many tricks here (Counter, tuple, zip(*grid))
+
+<9.14 2nd attempt>
+failed
+
+Notes
+1. lists are unhashable
