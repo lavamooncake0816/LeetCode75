@@ -1,0 +1,37 @@
+Stack (Medium)
+
+You are given a string s, which contains stars *.
+
+In one operation, you can:
+
+Choose a star in s.
+Remove the closest non-star character to its left, as well as remove the star itself.
+Return the string after all stars have been removed.
+
+Note:
+
+The input will be generated such that the operation is always possible.
+It can be shown that the resulting string will always be unique.
+
+<8.1 1st attempt>
+class Solution:
+    def removeStars(self, s: str) -> str:
+        cnt, ans, s = 0, deque(), s[::-1]
+
+        for ch in s:
+            if ch == '*':
+                cnt += 1
+            elif cnt: # count != '*' and count != 0
+                cnt -= 1 # discard char following *
+            else:
+                ans.appendleft(ch)
+        return ''.join(ans)
+
+Notes
+1. the idea is important (use 'count' to keep track of which letters to append and which to discard)
+
+<9.14 2nd attempt>
+failed
+
+Notes
+1. 'deque()' is useful 2. the order of traversal is important
