@@ -1,0 +1,32 @@
+Queue (Easy)
+
+You have a RecentCounter class which counts the number of recent requests within a certain time frame.
+
+Implement the RecentCounter class:
+
+RecentCounter() Initializes the counter with zero recent requests.
+int ping(int t) Adds a new request at time t, where t represents some time in milliseconds, and returns the number of requests that has happened in the past 3000 milliseconds (including the new request). Specifically, return the number of requests that have happened in the inclusive range [t - 3000, t].
+It is guaranteed that every call to ping uses a strictly larger value of t than the previous call.
+
+<8.7 1st attempt>
+class RecentCounter:
+
+    def __init__(self):
+        self.dq = collections.deque()
+
+    def ping(self, t: int) -> int:
+        self.dq.append(t)
+        while self.dq[0] < t - 3000:
+            self.dq.popleft()
+        return len(self.dq)
+
+
+# Your RecentCounter object will be instantiated and called as such:
+# obj = RecentCounter()
+# param_1 = obj.ping(t)
+
+Notes
+1. keep in mind the characteristics of 'deque' 2. when located under two function definitions of a class, add 'self' 
+
+<9.15 2nd attempt>
+failed
