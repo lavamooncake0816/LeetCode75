@@ -1,0 +1,48 @@
+Linked List (Medium)
+
+In a linked list of size n, where n is even, the ith node (0-indexed) of the linked list is known as the twin of the (n-1-i)th node, if 0 <= i <= (n / 2) - 1.
+
+For example, if n = 4, then node 0 is the twin of node 3, and node 1 is the twin of node 2. These are the only nodes with twins for n = 4.
+The twin sum is defined as the sum of a node and its twin.
+
+Given the head of a linked list with even length, return the maximum twin sum of the linked list.
+
+<8.15 1st attempt>
+# Definition for singly-linked list.
+# class ListNode:
+#     def __init__(self, val=0, next=None):
+#         self.val = val
+#         self.next = next
+class Solution:
+    def pairSum(self, head: Optional[ListNode]) -> int:
+        slow, fast = head, head.next
+        while fast.next:
+            slow = slow.next
+            fast = fast.next.next
+
+        # reverse second part of linked list
+        pre = None
+        cur = slow.next
+        while cur:
+            tmp = cur.next
+            cur.next = pre
+            pre = cur
+            cur = tmp
+        
+        # get max sum of pairs
+        m = 0
+        while pre:
+            m = max(m, head.val + pre.val)
+            head = head.next
+            pre = pre.next
+
+        return m
+
+Notes
+1. the idea is important (two pointers + reverse linked list) 2. slow and fast pointers can help intercept one-half of a linked list
+
+<9.17 2nd attempt>
+failed
+
+Notes
+1. how to reverse a linked list w/o recursion
