@@ -1,0 +1,28 @@
+Binary Tree - DFS (Medium)
+
+Given a binary tree root, a node X in the tree is named good if in the path from root to X there are no nodes with a value greater than X.
+
+Return the number of good nodes in the binary tree.
+
+<8.17 1st attempt>
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+class Solution:
+    def goodNodes(self, root: TreeNode, m = float('-inf')) -> int:
+        if not root:
+            return 0
+        else:
+            return self.goodNodes(root.left, max(m, root.val)) + self.goodNodes(root.right, max(m, root.val)) + (root.val >= m)
+
+Notes
+1. the idea of recursion is important
+
+<9.18 2nd attempt>
+failed
+
+Notes
+1. if each step is to be compared, 'm' is better to be a function parameter
