@@ -1,0 +1,29 @@
+Binary Tree - BFS (Medium)
+
+Given the root of a binary tree, imagine yourself standing on the right side of it, return the values of the nodes you can see ordered from top to bottom.
+
+<8.25 1st attempt>
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+class Solution:
+    def rightSideView(self, root: Optional[TreeNode]) -> List[int]:
+        view = []
+        def collect(root, level):
+            if not root:
+                return 
+            if level == len(view):
+                view.append(root.val)
+            collect(root.right, level + 1)
+            collect(root.left, level + 1)
+        collect(root, 0)
+        return view
+
+Notes
+1. figure out where to put the returned list (when to use nested functions) 2. variables before and after '==' 3.  'view = view.append()' vs. 'view.append()'
+
+<9.19 2nd attempt>
+failed
