@@ -1,0 +1,50 @@
+Binary Search Tree (Medium)
+
+Given a root node reference of a BST and a key, delete the node with the given key in the BST. Return the root node reference (possibly updated) of the BST.
+
+Basically, the deletion can be divided into two stages:
+
+Search for a node to remove.
+If the node is found, delete the node.
+
+<8.26 1st attempt>
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+class Solution:
+    def deleteNode(self, root: Optional[TreeNode], key: int) -> Optional[TreeNode]:
+
+        if not root: # []
+            return
+
+        if key < root.val: # node to be deleted is in the left tree
+            root.left = self.deleteNode(root.left, key) # finds the node and keeps the link
+        elif key > root.val: # node to be deleted is in the right tree
+            root.right = self.deleteNode(root.right, key) # finds the node and keeps the link
+        else: # key == root.val
+            # case 1: no child
+            if not root.left and not root.right:
+                return None
+            # case 2: one child
+            if not root.left and root.right:
+                return root.right
+            if not root.right and root.left:
+                return root.left
+            # case 3: two children
+            else:
+                pnt = root.right
+                while pnt.left:
+                    pnt = pnt.left # the smallest node in the right subtree (still bigger than values in the left subtree)
+                root.val = pnt.val # updates the value of the node that supposed to be deleted
+                root.right = self.deleteNode(root.right, root.val) # deletes the node of which the value has been transferred 
+        
+        return root
+
+Notes
+1. properties of a binary search tree (L < N < R) 2. discussion by case 3. flexible use of recursion when searching for nodes to be deleted
+
+<9.20 2nd attempt>
+failed
