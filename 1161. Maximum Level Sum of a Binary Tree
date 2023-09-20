@@ -1,0 +1,52 @@
+Binary Tree - BFS (Medium)
+
+Given the root of a binary tree, the level of its root is 1, the level of its children is 2, and so on.
+
+Return the smallest level x such that the sum of all the values of nodes at level x is maximal.
+
+<8.25 1st attempt>
+
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+class Solution:
+    def maxLevelSum(self, root: Optional[TreeNode]) -> int:
+        
+        if not root:
+            return
+
+        q = [root] # level-based
+        m_lvl = 1 # level with the maximum sum
+        lvl = 1 # current level
+        ma = float('-inf') # maximum sum
+
+        while q: # iteration
+
+            lvl_sum = 0 # current level sum 
+            next_lvl = [] # prepare for the next level of value storage
+
+            for node in q:
+                lvl_sum += node.val
+
+                if node.left:
+                    next_lvl.append(node.left)
+                if node.right:
+                    next_lvl.append(node.right)
+            
+            if lvl_sum > ma:
+                ma = lvl_sum # update the maximum level sum
+                m_lvl = lvl # update the level 
+            
+            q = next_lvl
+            lvl += 1
+        
+        return m_lvl
+
+Notes
+1. a method for level-order traversal - iteration 2. each loop, some variables are initialised and some are updated
+
+<9.20 2nd attempt>
+failed
