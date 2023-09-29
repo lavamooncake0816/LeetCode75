@@ -1,0 +1,35 @@
+Graphs - DFS (Medium)
+
+There are n cities. Some of them are connected, while some are not. If city a is connected directly with city b, and city b is connected directly with city c, then city a is connected indirectly with city c.
+
+A province is a group of directly or indirectly connected cities and no other cities outside of the group.
+
+You are given an n x n matrix isConnected where isConnected[i][j] = 1 if the ith city and the jth city are directly connected, and isConnected[i][j] = 0 otherwise.
+
+Return the total number of provinces.
+
+<8.28 1st attempt>
+# a province contains nodes linked together (achieved by continuously calling the dfs function)
+
+class Solution:
+    def dfs(self, M, visited, i):
+        for j in range(len(M)): # enumerates columns
+            if M[i][j] == 1 and visited[j] == 0: # i starts from 0
+                visited[j] = 1
+                self.dfs(M, visited, j) # j = i = len(M), enumeration (column first, row second)
+
+    def findCircleNum(self, M: List[List[int]]) -> int:
+        n = len(M) # the number of nodes
+        visited = [0] * n
+        cnt = 0
+        for i in range(n):
+            if visited[i] == 0:
+                self.dfs(M, visited, i)
+                cnt += 1 # province + 1
+        return cnt
+
+Notes
+1. the idea is important (convert the matrix to a visited list, where nodes in the same province are connected) 2. DFS and BFS run concurrently (DFS -> BFS)
+
+<9.29 2nd attempt>
+failed
