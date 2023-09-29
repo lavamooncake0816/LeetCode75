@@ -1,0 +1,65 @@
+Graphs - DFS (Medium)
+
+You are given an array of variable pairs equations and an array of real numbers values, where equations[i] = [Ai, Bi] and values[i] represent the equation Ai / Bi = values[i]. Each Ai or Bi is a string that represents a single variable.
+
+You are also given some queries, where queries[j] = [Cj, Dj] represents the jth query where you must find the answer for Cj / Dj = ?.
+
+Return the answers to all queries. If a single answer cannot be determined, return -1.0.
+
+Note: The input is always valid. You may assume that evaluating the queries will not result in division by zero and that there is no contradiction.
+
+Note: The variables that do not occur in the list of equations are undefined, so the answer cannot be determined for them.
+
+<8.31 1st attempt>
+class Solution:
+    def calcEquation(self, equations: List[List[str]], values: List[float], queries: List[List[str]]) -> List[float]:
+        graph = self.buildGraph(equations, values)
+        result = []
+
+        for query in queries:
+            result.append(self.get_path_weight(query[0], query[1], set(), graph))
+    
+        return result
+
+    def get_path_weight(self, start, end, visited, graph):
+        if start not in graph:
+            return -1.0
+
+        if end in graph[start]:
+            return graph[start][end] # if two nodes directly connected, return the weight directly
+        
+        visited.add(start) # set - uniqueness
+        for neighbour, weight in graph[start].items():
+            if neighbour not in visited: # prevents infinite loops
+                product_weight = self.get_path_weight(neighbour, end, visited, graph)
+                if product_weight != -1.0:
+                    return weight * product_weight
+        
+        return -1.0
+
+    def buildGraph(self, equations, values):
+        graph = {} # a dict is used to implement the 'graph' data structure, key-value pairs that represent nodes and their neighbours along with associated weights
+
+        for i in range(len(equations)):
+            u, v = equations[i]
+            if u not in graph:
+                graph[u] = {} # an empty dict
+            graph[u][v] = values[i] # nested dict - used to add an edge between two nodes
+            # {
+            #    'A': {
+            #        'B': 2.0
+            #    },
+            #    'B': {}
+            #    'C': {}
+            # }
+            if v not in graph:
+                graph[v] = {}
+            graph[v][u] = 1 / values[i]
+        
+        return graph
+
+Notes
+1. what are nodes? what are edges? are edges directed or undirected? (graph -> binary relationship, directed weighted graph) 2. during DFS, rejection case should be checked before accepting case
+
+<9.30 2nd attempt>
+failed
