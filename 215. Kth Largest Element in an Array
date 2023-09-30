@@ -1,0 +1,29 @@
+Heap / Priority Queue (Medium)
+
+Given an integer array nums and an integer k, return the kth largest element in the array.
+
+Note that it is the kth largest element in the sorted order, not the kth distinct element.
+
+Can you solve it without sorting?
+
+<9.4 1st attempt>
+import heapq
+class Solution:
+    def findKthLargest(self, nums: List[int], k: int) -> int:
+        min_heap = [] 
+
+        for i in nums:
+            heapq.heappush(min_heap, i) # min-heap by default - the smallest element is at the root
+            if len(min_heap) > k: 
+                heapq.heappop(min_heap)
+
+        return min_heap[0]
+
+Notes
+1. heapq (min-heap & max-heap) 2. stack vs. heap (priority queue, constant space, & efficient insertion and deletion)
+
+<10.1 2nd attempt>
+failed
+
+Notes
+1. 'heappop' pops and returns the smallest element
