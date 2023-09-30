@@ -1,0 +1,97 @@
+Graphs - BFS (Medium)
+
+You are given an m x n grid where each cell can have one of three values:
+
+0 representing an empty cell,
+1 representing a fresh orange, or
+2 representing a rotten orange.
+Every minute, any fresh orange that is 4-directionally adjacent to a rotten orange becomes rotten.
+
+Return the minimum number of minutes that must elapse until no cell has a fresh orange. If this is impossible, return -1.
+
+<9.2 1st attempt>
+from collections import deque
+
+class Solution:
+    def orangesRotting(self, grid: List[List[int]]) -> int:
+        q = deque()
+
+        minute = 0
+        rows = len(grid)
+        cols = len(grid[0])
+
+        offsets = [(0, 1), (0, -1), (1, 0), (-1, 0)]
+
+        for i in range(len(grid)):
+            for j in range(len(grid[0])):
+                if grid[i][j] == 2:
+                    q.append((i, j, minute)) # every rotten orange is recorded
+
+        while q:
+            i, j, minute = q.popleft()
+
+            for dx, dy in offsets:
+                x, y = i + dx, j + dy
+
+                if 0 <= x < rows and 0 <= y < cols and grid[x][y] == 1: # have to limit the index
+                    grid[x][y] = 2
+                    q.append((x, y, minute + 1))
+
+        # minute += 1 # after a round of infection from the original rotten oranges
+                    
+        for i in range(len(grid)):
+            for j in range(len(grid[0])):
+                if grid[i][j] == 1:
+                    return -1 # special case - only fresh orange 
+
+        return minute 
+
+# the output of case 2 is -1 because the code first runs the while loop, after finishing there's still '1' left, so the code directly returns -1
+
+Notes
+1. no need to check if new node is rotten or empty 2. limit index 3. q = deque() != q.append()
+
+<10.1 2nd attempt>
+class Solution:
+    def orangesRotting(self, grid: List[List[int]]) -> int:
+        q = deque()
+        true = -1
+        for i in range(len(grid)):
+            for j in range(len(grid[0])):
+                if grid[i][j] == 2:
+                    q.append((i, j))
+
+        if not q:
+            for row in grid:
+                if 1 in row:
+                    return -1
+                else:
+                    true = 0
+            return true
+
+        minute = 0
+        rows = len(grid)
+        cols = len(grid[0])
+
+        offsets = [(0, 1), (0, -1), (1, 0), (-1,0)]
+
+        while q:
+            for _ in range(len(q)):
+                i, j = q.popleft()
+
+                for dx, dy in offsets:
+                    x = i + dx
+                    y = j + dy
+
+                    if 0 <= x < rows and 0 <= y < cols and grid[x][y] == 1:
+                        grid[x][y] = 2
+                        q.append((x, y))
+
+            minute += 1
+
+        for i in range(len(grid)):
+            for j in range(len(grid[i])):
+                if grid[i][j] == 1:
+                    return -1
+
+        return minute - 1
