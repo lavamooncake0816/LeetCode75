@@ -1,0 +1,39 @@
+Heap / Priority Queue (Medium)
+
+You have a set which contains all positive integers [1, 2, 3, 4, 5, ...].
+
+Implement the SmallestInfiniteSet class:
+
+SmallestInfiniteSet() Initializes the SmallestInfiniteSet object to contain all positive integers.
+int popSmallest() Removes and returns the smallest integer contained in the infinite set.
+void addBack(int num) Adds a positive integer num back into the infinite set, if it is not already in the infinite set.
+
+<9.5 1st attempt>
+class SmallestInfiniteSet:
+
+    def __init__(self):
+        self.cur = 1 # maintains a variable which points to the current smallest element 
+        self.s = set()
+        
+    def popSmallest(self) -> int:
+        if self.s:
+            res = min(self.s)
+            self.s.remove(res)
+            return res
+        self.cur += 1 # ensures an ever-increasing sequence of int w/o the need to store an inf l in memory
+        return self.cur - 1
+
+    def addBack(self, num: int) -> None:
+        if self.cur > num:
+            self.s.add(num) # only add elements which were popped earlier (i.e., < cur)
+
+# Your SmallestInfiniteSet object will be instantiated and called as such:
+# obj = SmallestInfiniteSet()
+# param_1 = obj.popSmallest()
+# obj.addBack(num)
+
+Notes
+1. maintaining an ever-increasing set whilst minimising time and space is important 
+
+<10.1 2nd attempt>
+failed
