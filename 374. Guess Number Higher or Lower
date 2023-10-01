@@ -1,0 +1,35 @@
+Binary Search (Easy)
+
+We are playing the Guess Game. The game is as follows:
+
+I pick a number from 1 to n. You have to guess which number I picked.
+
+Every time you guess wrong, I will tell you whether the number I picked is higher or lower than your guess.
+
+You call a pre-defined API int guess(int num), which returns three possible results:
+
+-1: Your guess is higher than the number I picked (i.e. num > pick).
+1: Your guess is lower than the number I picked (i.e. num < pick).
+0: your guess is equal to the number I picked (i.e. num == pick).
+Return the number that I picked.
+
+<9.14 1st attempt>
+# The guess API is already defined for you.
+# @param num, your guess
+# @return -1 if num is higher than the picked number
+#          1 if num is lower than the picked number
+#          otherwise return 0
+# def guess(num: int) -> int:
+
+class Solution:
+    def guessNumber(self, n: int) -> int:
+        return bisect_left(range(n), 0, key=lambda num: -guess(num)) # the result of the 'key' is compared with the default '0', if it is greater than 0, the search goes to the left half (num > pick)
+
+Notes
+1. 'bisect_left() vs. bisect_right()' 2. lambda 
+
+<10.2 2nd attempt>
+failed
+
+Notes
+1. is the return a num or an i, and what the range(n) represents, i?
