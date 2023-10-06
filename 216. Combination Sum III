@@ -1,0 +1,38 @@
+Backtracking (Medium)
+
+Find all valid combinations of k numbers that sum up to n such that the following conditions are true:
+
+Only numbers 1 through 9 are used.
+Each number is used at most once.
+Return a list of all possible valid combinations. The list must not contain the same combination twice, and the combinations may be returned in any order.
+
+<10.1 1st attempt>
+
+class Solution:
+    def combinationSum3(self, k: int, n: int) -> List[List[int]]:
+        res = []
+        self.combination(res, [], k, 1, n)
+        return res
+        
+    def combination(self, res, comb, k, start, n):
+            # res: the list to store combinations
+            # comb: updated combinations
+            # k: the number of elements required in each comb
+            # start: the starting point for generating comb
+            # n: the target sum for comb
+            if len(comb) == k and n == 0:
+                res.append(list(comb)) # a copy of 'comb'
+                return
+            elif len(comb) > k or n < 0:
+                return
+
+            for i in range(start, 10):
+                comb.append(i)
+                self.combination(res, comb, k, i+1, n-i)
+                comb.pop()
+
+Notes
+1. backtracking is accompanied by state recovery
+
+<10.6 2nd attempt>
+failed
