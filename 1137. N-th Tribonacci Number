@@ -1,0 +1,43 @@
+DP - 1D (Easy)
+
+The Tribonacci sequence Tn is defined as follows: 
+
+T0 = 0, T1 = 1, T2 = 1, and Tn+3 = Tn + Tn+1 + Tn+2 for n >= 0.
+
+Given n, return the value of Tn.
+
+<10.1 1st attempt>
+class Solution:
+    def tribonacci(self, n: int) -> int:
+        s = [0, 1, 1]
+
+        if n == 0:
+            return 0
+        elif n == 1 or n == 2:
+            return 1
+        else:
+            for i in range(3, n+1):
+                next = s[i - 1] + s[i - 2] + s[i - 3]
+                s.append(next)
+        
+        return s[-1]
+
+Notes
+
+<10.6 2nd attempt>
+class Solution:
+    def tribonacci(self, n: int) -> int:
+        l = [0, 1, 1]
+
+        if n == 0:
+            return 0
+        elif n == 1 or n == 2:
+            return 1
+        
+        for i in range(3, n+1):
+            l.append(l[i-1] + l[i-2] + l[i-3])
+        
+        return l[-1]
+
+Notes
+1. much slower than the first version
